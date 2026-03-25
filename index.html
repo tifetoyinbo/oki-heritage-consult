@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OKI Heritage Consultancy | Logistics & Global Trade Excellence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mountain-dark: #1a1a2e;
+            --mountain-mid: #16213e;
+            --mountain-light: #0f3460;
+            --ocean-deep: #001f3f;
+            --ocean-mid: #003366;
+            --ocean-surface: #0074D9;
+            --gold: #FFD700;
+            --gold-light: #FFE55C;
+            --white: #ffffff;
+            --cream: #f5f5f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--mountain-dark);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Initial Loader */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--mountain-dark);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+
+        .loader-container.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-mountain {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            animation: breathe 3s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .loader-text {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-top: 2rem;
+            letter-spacing: 0.5em;
+            animation: shimmer 2s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Scroll Container */
+        .scroll-container {
+            position: relative;
+            height: 400vh;
+        }
+
+        /* Fixed Viewport */
+        .viewport {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Mountain Scene */
+        .mountain-scene {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+            opacity: 1;
+            transition: opacity 0.1s;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 60%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, white, transparent),
+                radial-gradient(2px 2px at 40px 70px, white, transparent),
+                radial-gradient(1px 1px at 90px 40px, white, transparent),
+                radial-gradient(2px 2px at 160px 120px, white, transparent),
+                radial-gradient(1px 1px at 230px 80px, white, transparent);
+            background-size: 250px 250px;
+            animation: twinkle 5s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        .moon {
+            position: absolute;
+            top: 10%;
+            right: 15%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle at 30% 30%, var(--gold-light), var(--gold));
+            border-radius: 50%;
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.5);
+            animation: moonGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes moonGlow {
+            0%, 100% { box-shadow: 0 0 60px rgba(255, 215, 0, 0.5); }
+            50% { box-shadow: 0 0 100px rgba(255, 215, 0, 0.8); }
+        }
+
+        /* Giant Mountain with OKC */
+        .mountain-container {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 70%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .mountain {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            box-shadow: inset 0 -100px 100px rgba(0,0,0,0.5);
+        }
+
+        .mountain::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, transparent 30%);
+            clip-path: polygon(50% 0%, 45% 20%, 50% 25%, 55% 20%);
+        }
+
+        .snow-cap {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(to bottom, white, transparent);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            opacity: 0.9;
+        }
+
+        /* OKC Letters on Mountain */
+        .okc-letters {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            z-index: 10;
+        }
+
+        .letter {
+            font-family: 'Cinzel', serif;
+            font-size: 8rem;
+            font-weight: 800;
+            color: transparent;
+            -webkit-text-stroke: 3px var(--gold);
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+            opacity: 0.9;
+            animation: letterFloat 6s ease-in-out infinite;
+            position: relative;
+        }
+
+        .letter::after {
+            content: attr(data-letter);
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            color: rgba(255, 215, 0, 0.1);
+            -webkit-text-stroke: 0;
+            z-index: -1;
+        }
+
+        .letter:nth-child(1) { animation-delay: 0s; margin-right: 4rem; }
+        .letter:nth-child(2) { animation-delay: 0.5s; margin-left: 2rem; }
+        .letter:nth-child(3) { animation-delay: 1s; margin-right: 3rem; }
+
+        @keyframes letterFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        .letter-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--gold);
+            letter-spacing: 1em;
+            margin-top: 2rem;
+            opacity: 0.8;
+        }
+
+        /* Transition Overlay */
+        .transition-fog {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to top, var(--ocean-deep), transparent);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Ocean Scene */
+        .ocean-scene {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #001122 0%, #003366 50%, #001a33 100%);
+            opacity: 0;
+            transition: opacity 0.1s;
+        }
+
+        .ocean-surface {
+            position: absolute;
+            top: 40%;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to bottom, #0074D9 0%, #001f3f 100%);
+            overflow: hidden;
+        }
+
+        .wave {
+            position: absolute;
+            width: 200%;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%230074D9' fill-opacity='0.3' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: 50% 100%;
+            animation: wave 10s linear infinite;
+            opacity: 0.5;
+        }
+
+        .wave:nth-child(2) {
+            animation-delay: -2s;
+            opacity: 0.3;
+            top: 10px;
+        }
+
+        .wave:nth-child(3) {
+            animation-delay: -4s;
+            opacity: 0.2;
+            top: 20px;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Cargo Ship */
+        .ship-container {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 300px;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .ship {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            animation: shipRock 4s ease-in-out infinite;
+        }
+
+        @keyframes shipRock {
+            0%, 100% { transform: rotate(-1deg) translateY(0); }
+            50% { transform: rotate(1deg) translateY(-10px); }
+        }
+
+        .ship-hull {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(to bottom, #4a4a4a, #2a2a2a);
+            clip-path: polygon(0% 40%, 10% 0%, 90% 0%, 100% 40%, 95% 100%, 5% 100%);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .ship-deck {
+            position: absolute;
+            bottom: 120px;
+            left: 10%;
+            width: 80%;
+            height: 20px;
+            background: #333;
+        }
+
+        .container-stack {
+            position: absolute;
+            bottom: 140px;
+            display: flex;
+            gap: 5px;
+            padding: 0 20px;
+        }
+
+        .container {
+            width: 60px;
+            height: 40px;
+            background: linear-gradient(to bottom, #e74c3c, #c0392b);
+            border: 2px solid rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .container:nth-child(2n) { background: linear-gradient(to bottom, #3498db, #2980b9); }
+        .container:nth-child(3n) { background: linear-gradient(to bottom, #f39c12, #d68910); }
+        .container:nth-child(4n) { background: linear-gradient(to bottom, #27ae60, #229954); }
+
+        .ship-bridge {
+            position: absolute;
+            bottom: 140px;
+            right: 15%;
+            width: 80px;
+            height: 60px;
+            background: linear-gradient(to bottom, #ecf0f1, #bdc3c7);
+            clip-path: polygon(0% 100%, 0% 30%, 30% 0%, 100% 0%, 100% 100%);
+        }
+
+        .ship-name {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            letter-spacing: 0.3em;
+        }
+
+        /* Company Info on Ship Scene */
+        .company-reveal {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .company-reveal h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 4rem;
+            color: var(--gold);
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+            margin-bottom: 1rem;
+            letter-spacing: 0.2em;
+        }
+
+        .company-reveal .tagline {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        /* Content Sections */
+        .content-sections {
+            position: relative;
+            margin-top: 100vh;
+            background: var(--cream);
+            color: var(--mountain-dark);
+            z-index: 100;
+        }
+
+        section {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--mountain-dark);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+        }
+
+        .section-header p {
+            color: #666;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--gold), var(--ocean-surface));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--mountain-dark), var(--ocean-mid));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .service-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--mountain-dark);
+        }
+
+        .service-card p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        /* About Section */
+        .about-section {
+            background: linear-gradient(to bottom, var(--cream), #e8e8e0);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--mountain-dark);
+        }
+
+        .about-text p {
+            color: #555;
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .image-frame {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, var(--mountain-dark), var(--ocean-mid));
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .image-frame::before {
+            content: 'OKC';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel', serif;
+            font-size: 8rem;
+            color: rgba(255,255,255,0.1);
+            font-weight: 800;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            font-weight: 800;
+            display: block;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.5rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--mountain-dark);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .contact-section .section-header h2 {
+            color: white;
+        }
+
+        .contact-section .section-header p {
+            color: #aaa;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--gold);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details h4 {
+            font-family: 'Cinzel', serif;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .contact-details p, .contact-details a {
+            color: #aaa;
+            text-decoration: none;
+            line-height: 1.6;
+            transition: color 0.3s;
+        }
+
+        .contact-details a:hover {
+            color: var(--gold);
+        }
+
+        .contact-form {
+            background: rgba(255,255,255,0.05);
+            padding: 3rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: white;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--mountain-dark);
+            border: none;
+            border-radius: 12px;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a1a;
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            color: var(--mountain-dark);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            color: #444;
+            font-size: 0.9rem;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--gold);
+            animation: bounce 2s infinite;
+            z-index: 10;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .mouse {
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .wheel {
+            width: 4px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 2px;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes scroll {
+            0% { opacity: 1; top: 10px; }
+            100% { opacity: 0; top: 30px; }
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .letter { font-size: 5rem; }
+            .company-reveal h1 { font-size: 2.5rem; }
+            .about-content,
+            .contact-grid { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .letter { font-size: 3.5rem; -webkit-text-stroke: 2px var(--gold); }
+            .okc-letters { gap: 1rem; }
+            .ship-container { width: 90%; height: 200px; }
+            .section-header h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loader -->
+    <div class="loader-container" id="loader">
+        <div class="loader-mountain">
+            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 20L20 180H180L100 20Z" fill="url(#grad1)" stroke="#FFD700" stroke-width="2"/>
+                <path d="M100 20L70 80L100 90L130 80L100 20Z" fill="white" opacity="0.9"/>
+                <text x="85" y="140" font-family="Cinzel" font-size="40" fill="#FFD700" font-weight="bold">O</text>
+                <text x="75" y="100" font-family="Cinzel" font-size="35" fill="#FFD700" font-weight="bold">K</text>
+                <text x="95" y="60" font-family="Cinzel" font-size="30" fill="#FFD700" font-weight="bold">C</text>
+                <defs>
+                    <linearGradient id="grad1" x1="100" y1="20" x2="100" y2="180" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#2c3e50"/>
+                        <stop offset="100%" stop-color="#1a1a2e"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+        <div class="loader-text">OKI</div>
+    </div>
+
+    <!-- Fixed Viewport for Scroll Animation -->
+    <div class="viewport">
+        <!-- Mountain Scene -->
+        <div class="mountain-scene" id="mountainScene">
+            <div class="stars"></div>
+            <div class="moon"></div>
+            
+            <div class="mountain-container">
+                <div class="mountain">
+                    <div class="snow-cap"></div>
+                </div>
+                <div class="okc-letters" id="okcLetters">
+                    <div class="letter" data-letter="O">O</div>
+                    <div class="letter" data-letter="K">K</div>
+                    <div class="letter" data-letter="C">C</div>
+                    <div class="letter-subtitle">HERITAGE</div>
+                </div>
+            </div>
+            
+            <div class="scroll-indicator" id="scrollIndicator">
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+                <span>Scroll to Explore</span>
+            </div>
+        </div>
+
+        <!-- Transition Fog -->
+        <div class="transition-fog" id="transitionFog"></div>
+
+        <!-- Ocean Scene -->
+        <div class="ocean-scene" id="oceanScene">
+            <div class="company-reveal" id="companyReveal">
+                <h1>OKI HERITAGE</h1>
+                <div class="tagline">Consultancy & Logistics Excellence</div>
+            </div>
+
+            <div class="ship-container" id="shipContainer">
+                <div class="ship">
+                    <div class="ship-hull"></div>
+                    <div class="ship-deck"></div>
+                    <div class="container-stack" style="left: 15%;">
+                        <div class="container"></div>
+                        <div class="container"></div>
+                        <div class="container"></div>
+                        <div class="container"></div>
+                    </div>
+                    <div class="container-stack" style="left: 45%; bottom: 180px;">
+                        <div class="container"></div>
+                        <div class="container"></div>
+                    </div>
+                    <div class="ship-bridge"></div>
+                    <div class="ship-name">OKI CARGO</div>
+                </div>
+            </div>
+
+            <div class="ocean-surface">
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="content-sections">
+        <!-- Services Section -->
+        <section id="services">
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <p>Comprehensive logistics and consultancy solutions tailored to drive your business forward across global markets.</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🚛</div>
+                    <h3>Logistics & Transportation</h3>
+                    <p>Road transportation, haulage, and delivery services. We specialize in packaging, removal of goods, and efficient road vehicle charters including cooler vehicle rentals for temperature-sensitive cargo.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📦</div>
+                    <h3>General Supplies & Procurement</h3>
+                    <p>End-to-end procurement services and general supplies of goods. We handle all forms of procurement with precision, ensuring quality and timely delivery for your business needs.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🌍</div>
+                    <h3>Importation & Exportation</h3>
+                    <p>International trade expertise covering importation, exportation, commission agency, and distribution. We navigate global markets to expand your business reach.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🏭</div>
+                    <h3>Warehousing & Manufacturing</h3>
+                    <p>State-of-the-art warehousing solutions and manufacturing support. We serve as manufacturer's representatives, handling general trading and wholesale operations.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🤝</div>
+                    <h3>Trading & Distribution</h3>
+                    <p>Comprehensive trading services including buying and selling, merchandising, and distribution of both finished products and raw materials across diverse markets.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🚗</div>
+                    <h3>Car Hire & Passenger Services</h3>
+                    <p>Reliable car hire services and passenger transportation solutions. We provide comfortable, safe, and efficient road transport for individuals and groups.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Building Legacy Through Excellence</h3>
+                    <p>OKI Heritage Consultancy stands as a beacon of reliability in the logistics and consultancy landscape. Founded on principles of integrity, efficiency, and customer-centric service, we have grown to become a trusted partner for businesses seeking seamless supply chain solutions.</p>
+                    <p>Our mission extends beyond mere transportation and procurement. We aim to bridge gaps between markets, connecting manufacturers to distributors, suppliers to consumers, and businesses to opportunities. With our comprehensive suite of services, we handle every aspect of your logistics needs with precision and care.</p>
+                    <p>From the peaks of ambition to the depths of execution, we navigate every challenge with the same dedication that brought us from the mountain to the sea.</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <span class="stat-number">15+</span>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">500+</span>
+                            <div class="stat-label">Projects Delivered</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">50+</span>
+                            <div class="stat-label">Expert Staff</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">99%</span>
+                            <div class="stat-label">Client Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-image">
+                    <div class="image-frame"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="section-header">
+                <h2>Connect With Us</h2>
+                <p>Ready to elevate your logistics and procurement operations? Reach out to our team of experts.</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h4>Address</h4>
+                            <p>7, Adepoju Street, Airport,<br>Alakia, Ibadan, Oyo State, Nigeria</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-details">
+                            <h4>Phone Numbers</h4>
+                            <p>
+                                <a href="tel:+2348164302043">0816 430 2043</a><br>
+                                <a href="tel:+2348035969062">0803 596 9062</a><br>
+                                <a href="tel:+2348164860743">0816 486 0743</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p><a href="mailto:okiheritage2@gmail.com">okiheritage2@gmail.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">🕒</div>
+                        <div class="contact-details">
+                            <h4>Business Hours</h4>
+                            <p>Monday - Friday: 8:00 AM - 6:00 PM<br>
+                            Saturday: 9:00 AM - 4:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Your Name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required placeholder="your@email.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Your Phone Number">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="service">Service Interested In</label>
+                            <input type="text" id="service" name="service" placeholder="e.g., Logistics, Procurement, Import/Export">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="4" required placeholder="Tell us about your requirements..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-logo">OKI</div>
+            <p class="footer-text">Heritage Consultancy & Logistics Services</p>
+            
+            <div class="social-links">
+                <a href="#" aria-label="Facebook">f</a>
+                <a href="#" aria-label="Twitter">𝕏</a>
+                <a href="#" aria-label="LinkedIn">in</a>
+                <a href="#" aria-label="Instagram">📷</a>
+            </div>
+            
+            <p class="copyright">&copy; 2024 OKI Heritage Consultancy. All rights reserved. | Designed with Excellence</p>
+        </footer>
+    </div>
+
+    <script>
+        // Page Load Animation
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 2000);
+        });
+
+        // Scroll Animation Logic
+        const scrollContainer = document.querySelector('.scroll-container');
+        const mountainScene = document.getElementById('mountainScene');
+        const oceanScene = document.getElementById('oceanScene');
+        const transitionFog = document.getElementById('transitionFog');
+        const okcLetters = document.getElementById('okcLetters');
+        const shipContainer = document.getElementById('shipContainer');
+        const companyReveal = document.getElementById('companyReveal');
+        const scrollIndicator = document.getElementById('scrollIndicator');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const windowHeight = window.innerHeight;
+            const docHeight = document.body.scrollHeight - windowHeight;
+            const scrollPercent = scrollTop / docHeight;
+            
+            // Calculate viewport-relative progress (first 100vh is the fixed animation)
+            const viewportProgress = Math.min(scrollTop / windowHeight, 1);
+            
+            // Phase 1: Mountain to Ocean Transition (0% - 50% of first viewport)
+            if (viewportProgress <= 0.5) {
+                const phase1Progress = viewportProgress * 2; // 0 to 1
+                
+                // Fade out mountain
+                mountainScene.style.opacity = 1 - phase1Progress;
+                
+                // Fade in fog
+                transitionFog.style.opacity = phase1Progress;
+                
+                // Move letters up and fade
+                okcLetters.style.transform = `translate(-50%, -${phase1Progress * 100}px)`;
+                okcLetters.style.opacity = 1 - phase1Progress;
+                
+                // Hide scroll indicator
+                scrollIndicator.style.opacity = 1 - (phase1Progress * 2);
+            } 
+            // Phase 2: Ocean Scene Reveal (50% - 100% of first viewport)
+            else {
+                const phase2Progress = (viewportProgress - 0.5) * 2; // 0 to 1
+                
+                // Fade in ocean
+                oceanScene.style.opacity = phase2Progress;
+                
+                // Fade out fog
+                transitionFog.style.opacity = 1 - phase2Progress;
+                
+                // Animate ship entrance
+                shipContainer.style.opacity = phase2Progress;
+                shipContainer.style.transform = `translate(-50%, ${(1 - phase2Progress) * 100}px)`;
+                
+                // Reveal company name
+                companyReveal.style.opacity = Math.max(0, (phase2Progress - 0.3) * 2);
+                companyReveal.style.transform = `translate(-50%, ${(1 - Math.min(phase2Progress * 1.5, 1)) * 50}px)`;
+            }
+            
+            // Parallax effect for letters during mountain phase
+            if (viewportProgress < 0.3) {
+                const letters = document.querySelectorAll('.letter');
+                letters.forEach((letter, index) => {
+                    const speed = (index + 1) * 0.5;
+                    letter.style.transform = `translateY(${scrollTop * speed * 0.1}px)`;
+                });
+            }
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('.submit-btn');
+            const originalText = btn.textContent;
+            
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.textContent = 'Message Sent!';
+                btn.style.background = '#27ae60';
+                this.reset();
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 3000);
+            }, 1500);
+        });
+
+        // Intersection Observer for content animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe service cards
+        document.querySelectorAll('.service-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+
+        // Animate stats when visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const target = parseInt(stat.textContent);
+                        let current = 0;
+                        const increment = target / 50;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                stat.textContent = target + (stat.textContent.includes('+') ? '+' : (stat.textContent.includes('%') ? '%' : '+'));
+                                clearInterval(timer);
+                            } else {
+                                stat.textContent = Math.floor(current);
+                            }
+                        }, 30);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsGrid = document.querySelector('.stats-grid');
+        if (statsGrid) statsObserver.observe(statsGrid);
+    </script>
+</body>
+</html>
